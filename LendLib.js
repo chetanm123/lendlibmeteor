@@ -11,7 +11,7 @@ if (Meteor.isClient) {
 	//this returns true if adding_category has been assigned a value true
 
 	Template.categories.new_cat=function(){
-		console.log("then here");
+		
 		return Session.equals('adding_category',true);
 	};
 
@@ -36,16 +36,56 @@ if (Meteor.isClient) {
 		'focusout #add-category':function(e,t){
 			Session.set('adding_category',false);
 		},
+		
+		
 		'click .category':selectCategory
+		
 	});
  
-	function focusText(i){
+	function focusText(i,val){
 		i.focus();
+		i.value=val?val:"";
 		i.select();
 	}
 
 	function selectCategory(e,t){
 		Session.set('current_list',this._id);
+	}
+
+	function addItem(list_id,item_name){
+		if(!item_name && !list_id)
+			return;
+		lists.update({_id:list_id},{$addToSet:{items:{Name:item_name}}});
+	}
+	
+	function removeItem(list_id,item_name){
+		if(!item_name && !list_id)
+			return;
+		lists.update({_id:list_id},{$pull:{items:{Name:item_name}}});
+	}
+
+	function updateLendee(list_id,item_name,lendee_name){
+		var l = lists.findOne({"_id":list_id,"items.Name":item_name});
+		if(l&&l.items){
+			for(var i=0;i<l.items.length;i++){
+				if(l.items[i].Name === item_name){
+					l.items[i].LentTo = lendee_name;
+				}
+			}
+			lists.update({"_id":list_id},{$set:{"items":l.items}});
+		}
+	}
+
+	function updateItemName(list_id,item_name,new_item_name){
+		var l=lists.findOne({"_id":list_id,"items.Name":item_name});
+		if(l&&l.items){
+			for(var i=0;i<l.items.length;i++){
+				if(l.items[i].Name === item_name){
+					l.items[i].Name = new_item_name;
+				}
+			}
+			lists.update({"_id":list_id},{$set:{"items":l.items}});
+		}
 	}
 
 	Template.list.items=function(){
@@ -86,6 +126,10 @@ if (Meteor.isClient) {
 		return (Session.equals('lendee_input',this.Name));
 	};
 
+	Template.list.edit_category=function(){		
+		return Session.equals('edit_category',this.Name);
+	};
+
 	Template.list.events({
 		'click #btnAddItem':function(e,t){
 			Session.set('list_adding',true);
@@ -94,7 +138,7 @@ if (Meteor.isClient) {
 		},
 		'keyup #item_to_add':function(e,t){
 			if(e.which===13){
-				//addItem(Session.get('current_list'),e.target.value);
+				addItem(Session.get('current_list'),e.target.value);
 				Session.set('list_adding',false);
 			}
 		},
@@ -109,9 +153,33 @@ if (Meteor.isClient) {
 		'click .lendee':function(e,t){
 			Session.set('lendee_input',this.Name);
 			Meteor.flush();
-			console.log(this.LentTo);
+			//console.log(this.LentTo);
 			focusText(t.find("#edit_lendee"),this.LentTo);
+		},
+		
+		'keyup #edit_lendee':function(e,t){
+			if(e.which ===13){
+				updateLendee(Session.get('current_list'),this.Name,e.target.value);
+				Session.set('lendee_input',null);
+			}
+			if(e.which===27){
+				Session.set('lendee_input',null);
+			}
+		},
+		
+		'click .edit_category':function(e,t){
+			Session.set('edit_category',this.Name);
+			Meteor.flush();
+			focusText(t.find("#category_edit"),this.Name);
+		},
+
+		'keyup #category_edit':function(e,t){
+			if(e.which===13){
+				updateItemName(Session.get('current_list'),this.Name,e.target.value)
+				Session.set('edit_category',null);
+			}
 		}
+		
 	});
 	/* Template.hello.greeting = function () {
     return "My list.";
