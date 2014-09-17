@@ -1,0 +1,59 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'meteorite' ]
+2 info using npm@1.1.36
+3 info using node@v0.8.2
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 verbose config file C:\Users\user\.npmrc
+6 verbose config file C:\Program Files (x86)\nodejs\etc\npmrc
+7 verbose config file C:\Program Files (x86)\nodejs\node_modules\npm\npmrc
+8 verbose read json C:\wamp\www\Meteor\lendlibmeteor\package.json
+9 verbose read json C:\wamp\www\Meteor\lendlibmeteor\package.json
+10 verbose cache add [ 'meteorite', null ]
+11 silly cache add name=undefined spec="meteorite" args=["meteorite",null]
+12 verbose parsed url { pathname: 'meteorite', path: 'meteorite', href: 'meteorite' }
+13 silly lockFile 8f2f99a9-meteorite meteorite
+14 verbose lock meteorite C:\Users\user\AppData\Roaming\npm-cache\8f2f99a9-meteorite.lock
+15 silly lockFile 8f2f99a9-meteorite meteorite
+16 verbose addNamed [ 'meteorite', '' ]
+17 verbose addNamed [ null, '' ]
+18 silly lockFile bf6d5fee-meteorite meteorite@
+19 verbose lock meteorite@ C:\Users\user\AppData\Roaming\npm-cache\bf6d5fee-meteorite.lock
+20 silly addNameRange { name: 'meteorite', range: '', hasData: false }
+21 verbose url raw meteorite
+22 verbose url resolving [ 'https://registry.npmjs.org/', './meteorite' ]
+23 verbose url resolved https://registry.npmjs.org/meteorite
+24 info retry registry request attempt 1 at 10:52:48
+25 http GET https://registry.npmjs.org/meteorite
+26 info retry will retry, error on last attempt: Error: SSL Error: SELF_SIGNED_CERT_IN_CHAIN
+27 info retry registry request attempt 2 at 10:52:59
+28 http GET https://registry.npmjs.org/meteorite
+29 info retry will retry, error on last attempt: Error: SSL Error: SELF_SIGNED_CERT_IN_CHAIN
+30 info retry registry request attempt 3 at 10:54:00
+31 http GET https://registry.npmjs.org/meteorite
+32 silly lockFile bf6d5fee-meteorite meteorite@
+33 error Error: SSL Error: SELF_SIGNED_CERT_IN_CHAIN
+33 error     at ClientRequest.<anonymous> (C:\Program Files (x86)\nodejs\node_modules\npm\node_modules\request\main.js:440:26)
+33 error     at ClientRequest.g (events.js:185:14)
+33 error     at ClientRequest.EventEmitter.emit (events.js:88:17)
+33 error     at HTTPParser.parserOnIncomingClient [as onIncoming] (http.js:1445:7)
+33 error     at HTTPParser.parserOnHeadersComplete [as onHeadersComplete] (http.js:111:23)
+33 error     at CleartextStream.socketOnData [as ondata] (http.js:1356:20)
+33 error     at CleartextStream.CryptoStream._push (tls.js:396:27)
+33 error     at SecurePair.cycle (tls.js:750:20)
+33 error     at EncryptedStream.CryptoStream.write (tls.js:131:13)
+33 error     at Socket.ondata (stream.js:38:26)
+33 error  [Error: SSL Error: SELF_SIGNED_CERT_IN_CHAIN]
+34 error You may report this log at:
+34 error     <http://github.com/isaacs/npm/issues>
+34 error or email it to:
+34 error     <npm-@googlegroups.com>
+35 error System Windows_NT 6.1.7600
+36 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "meteorite"
+37 error cwd C:\wamp\www\Meteor\lendlibmeteor
+38 error node -v v0.8.2
+39 error npm -v 1.1.36
+40 error message SSL Error: SELF_SIGNED_CERT_IN_CHAIN
+41 verbose exit [ 1, true ]
